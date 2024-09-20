@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruoyi.system.mapper.SysWithdrawRequestMapper">
+
+    <!-- 插入新的提现请求 -->
+    <insert id="insertWithdrawRequest" useGeneratedKeys="true" keyProperty="requestId">
+        INSERT INTO sys_withdraw_requests
+            (username, account, amount, request_time, status, out_biz_no)
+        VALUES
+            (#{username}, #{account}, #{amount}, #{requestTime}, #{status}, #{outBizNo})
+    </insert>
+
+    <!-- 查询所有提现请求 -->
+    <select id="getAllWithdrawRequests" resultType="com.ruoyi.system.domain.SysWithdrawRequest">
+        SELECT
+            request_id AS requestId,
+            username,
+            account,
+            amount,
+            request_time AS requestTime,
+            status,
+            approved_by AS approvedBy,
+            approval_time AS approvalTime,
+            remarks,
+            out_biz_no AS outBizNo,
+            response_body AS responseBody,
+            failure_reason AS failureReason
+        FROM
+            sys_withdraw_requests
+        ORDER BY
+            request_time DESC
+    </select>
+
+    <!-- 根据 ID 查询提现请求 -->
+    <select id="findById" parameterType="Long" resultType="com.ruoyi.system.domain.SysWithdrawRequest">
+        SELECT
+            request_id AS requestId,
+            username,
+            account,
+            amount,
+            request_time AS requestTime,
+            status,
+            approved_by AS approvedBy,
+            approval_time AS approvalTime,
+            remarks,
+            out_biz_no AS outBizNo,
+            response_body AS responseBody,
+            failure_reason AS failureReason
+        FROM
+            sys_withdraw_requests
+        WHERE
+            request_id = #{requestId}
+    </select>
+
+    <!-- 更新提现请求的审核状态 -->
+    <update id="updateWithdrawRequest" parameterType="com.ruoyi.system.domain.SysWithdrawRequest">
+        UPDATE sys_withdraw_requests
+        SET
+            status = #{status},
+            response_body = #{responseBody},
+            failure_reason = #{failureReason},
+            approved_by = #{approvedBy},
+            approval_time = #{approvalTime}
+        WHERE
+            request_id = #{requestId}
+    </update>
+
+</mapper>

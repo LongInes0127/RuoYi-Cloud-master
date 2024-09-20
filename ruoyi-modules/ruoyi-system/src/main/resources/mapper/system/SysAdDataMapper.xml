@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysAdDataMapper">
+    <resultMap id="SysAdDataResultMap" type="com.ruoyi.system.domain.SysAdData">
+        <id property="id" column="id"/>
+        <result property="date" column="date"/>
+        <result property="adRequestPv" column="ad_request_pv"/>
+        <result property="exposurePv" column="exposure_pv"/>
+        <result property="clickPv" column="click_pv"/>
+        <result property="clickRate" column="click_rate"/>
+        <result property="ecpm" column="ecpm"/>
+        <result property="adRevenue" column="ad_revenue"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <select id="getAllData" resultMap="SysAdDataResultMap">
+        SELECT * FROM sys_ad_data ORDER BY date DESC
+    </select>
+
+    <select id="getDataById" parameterType="long" resultMap="SysAdDataResultMap">
+        SELECT * FROM sys_ad_data WHERE id = #{id}
+    </select>
+
+    <select id="getDataByDateRange" resultMap="SysAdDataResultMap">
+        SELECT * FROM sys_ad_data
+        WHERE date BETWEEN #{startDate} AND #{endDate}
+        ORDER BY date
+    </select>
+
+    <insert id="insertData" parameterType="com.ruoyi.system.domain.SysAdData" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_ad_data (date, ad_request_pv, exposure_pv, click_pv, click_rate, ecpm, ad_revenue)
+        VALUES (#{date}, #{adRequestPv}, #{exposurePv}, #{clickPv}, #{clickRate}, #{ecpm}, #{adRevenue})
+    </insert>
+
+    <update id="updateData" parameterType="com.ruoyi.system.domain.SysAdData">
+        UPDATE sys_ad_data
+        SET date = #{date},
+            ad_request_pv = #{adRequestPv},
+            exposure_pv = #{exposurePv},
+            click_pv = #{clickPv},
+            click_rate = #{clickRate},
+            ecpm = #{ecpm},
+            ad_revenue = #{adRevenue}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteData" parameterType="long">
+        DELETE FROM sys_ad_data WHERE id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UserClicksMapper">
+    <resultMap id="UserClicksResult" type="com.ruoyi.system.api.domain.UserClicks">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="clickCount" column="click_count"/>
+        <!-- Add other fields as needed -->
+    </resultMap>
+
+    <select id="selectByUserId" parameterType="Long" resultMap="UserClicksResult">
+        select * from user_clicks where user_id = #{userId}
+    </select>
+</mapper>

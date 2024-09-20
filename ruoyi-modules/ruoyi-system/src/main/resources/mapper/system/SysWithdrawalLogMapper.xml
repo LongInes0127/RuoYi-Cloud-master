@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysWithdrawalLogMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.system.domain.WithdrawalLog">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+        <result column="amount" jdbcType="DECIMAL" property="amount" />
+        <result column="withdrawal_time" jdbcType="TIMESTAMP" property="withdrawalTime" />
+        <result column="status" jdbcType="VARCHAR" property="status" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.ruoyi.system.domain.WithdrawalLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO withdrawal_log (username, phone_number, amount, withdrawal_time, status, remarks)
+        VALUES (#{username}, #{phoneNumber}, #{amount}, #{withdrawalTime}, #{status}, #{remarks})
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM withdrawal_log WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM withdrawal_log
+    </select>
+
+    <update id="updateById" parameterType="com.ruoyi.system.domain.WithdrawalLog">
+        UPDATE withdrawal_log
+        SET username = #{username},
+            phone_number = #{phoneNumber},
+            amount = #{amount},
+            withdrawal_time = #{withdrawalTime},
+            status = #{status},
+            remarks = #{remarks}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM withdrawal_log WHERE id = #{id}
+    </delete>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        SELECT * FROM withdrawal_log WHERE username = #{username}
+    </select>
+
+    <select id="selectByStatus" resultMap="BaseResultMap">
+        SELECT * FROM withdrawal_log WHERE status = #{status}
+    </select>
+</mapper>
