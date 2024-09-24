@@ -3,12 +3,15 @@
 <mapper namespace="com.ruoyi.system.mapper.UserClicksMapper">
     <resultMap id="UserClicksResult" type="com.ruoyi.system.api.domain.UserClicks">
         <id property="id" column="id"/>
-        <result property="userId" column="user_id"/>
-        <result property="clickCount" column="click_count"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="watchedAdsCount" column="watched_ads_count"/>
+        <result property="unseenAdsCount" column="unseen_ads_count"/>
         <!-- Add other fields as needed -->
     </resultMap>
 
     <select id="selectByPhoneNumber" parameterType="String" resultMap="UserClicksResult">
-        select * from user_clicks where phone_number = #{phoneNumber}
+        select id, phone_number, watched_ads_count, unseen_ads_count
+        from user_clicks
+        where phone_number = #{phoneNumber}
     </select>
 </mapper>

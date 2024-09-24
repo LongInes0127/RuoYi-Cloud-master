@@ -21,4 +21,8 @@
     <select id="selectById" parameterType="Long" resultMap="UserResult">
         select * from users where id = #{id}
     </select>
+
+    <select id="selectByPhoneNumber" parameterType="String" resultMap="UserResult">
+        select * from users where phone_number = #{phoneNumber}
+    </select>
 </mapper>

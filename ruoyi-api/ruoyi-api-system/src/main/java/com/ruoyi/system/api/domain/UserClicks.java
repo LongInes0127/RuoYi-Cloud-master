@@ -9,8 +9,12 @@ package com.ruoyi.system.api.domain;
 public class UserClicks {
 
 	private Long id;
-	private Long userId;
-	private int clickCount;
+
+	private String phoneNumber;
+
+	private Integer watchedAdsCount;
+
+	private Integer unseenAdsCount;
 
 	public Long getId() {
 		return id;
@@ -20,19 +24,27 @@ public class UserClicks {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
-	public int getClickCount() {
-		return clickCount;
+	public Integer getWatchedAdsCount() {
+		return watchedAdsCount;
 	}
 
-	public void setClickCount(int clickCount) {
-		this.clickCount = clickCount;
+	public void setWatchedAdsCount(Integer watchedAdsCount) {
+		this.watchedAdsCount = watchedAdsCount;
+	}
+
+	public Integer getUnseenAdsCount() {
+		return unseenAdsCount;
+	}
+
+	public void setUnseenAdsCount(Integer unseenAdsCount) {
+		this.unseenAdsCount = unseenAdsCount;
 	}
 }
