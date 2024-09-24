@@ -8,7 +8,7 @@
         <!-- Add other fields as needed -->
     </resultMap>
 
-    <select id="selectByUserId" parameterType="Long" resultMap="UserClicksResult">
-        select * from user_clicks where user_id = #{userId}
+    <select id="selectByPhoneNumber" parameterType="String" resultMap="UserClicksResult">
+        select * from user_clicks where phone_number = #{phoneNumber}
     </select>
 </mapper>

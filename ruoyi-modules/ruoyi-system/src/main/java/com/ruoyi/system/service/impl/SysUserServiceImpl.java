@@ -32,6 +32,8 @@ import com.ruoyi.system.service.ISysConfigService;
 import com.ruoyi.system.service.ISysDeptService;
 import com.ruoyi.system.service.ISysUserService;
 
+import static com.ruoyi.common.core.utils.PageUtils.startPage;
+
 /**
  * 用户 业务层处理
  *
@@ -85,24 +87,37 @@ public class SysUserServiceImpl implements ISysUserService {
 
 	@Override
 	public List<CombinedUserData> selectCombinedUserList(SysUser user) {
+		// 开启分页
+		startPage();
+
+		// 从 userMapper 中分页查询 sysUsers 列表
 		List<SysUser> sysUsers = userMapper.selectUserList(user);
+
+		// 合并数据
 		List<CombinedUserData> combinedList = new ArrayList<>();
 
 		for (SysUser sysUser : sysUsers) {
 			CombinedUserData combined = new CombinedUserData();
 			combined.setSysUser(sysUser);
 
-			Users users = usersMapper.selectByUsername(sysUser.getUserName());
-			if (users != null) {
+			// 根据手机号从 users 表中查询多个结果
+			List<Users> usersList = usersMapper.selectByPhoneNumber(sysUser.getPhonenumber());
+			if (usersList != null && !usersList.isEmpty()) {
+				// 假设只处理第一个匹配到的记录
+				Users users = usersList.get(0);
 				combined.setUsers(users);
 
-				UserClicks userClicks = userClicksMapper.selectByUserId(users.getId());
-				combined.setUserClicks(userClicks);
+				// 根据 PhoneNumber 查询点击记录
+				List<UserClicks> userClicksList = userClicksMapper.selectByPhoneNumber(users.getPhoneNumber());
+				if (userClicksList != null && !userClicksList.isEmpty()) {
+					combined.setUserClicks(userClicksList.get(0));
+				}
 			}
 
 			combinedList.add(combined);
 		}
 
+		// 返回分页数据
 		return combinedList;
 	}
 
